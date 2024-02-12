@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config}*/
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/tw-elements/dist/js/**/*.js'],
 
 	theme: {
 		extend: {}
 	},
-
-	plugins: []
+	darkMode: 'class',
+	plugins: [require('tw-elements/dist/plugin.cjs')]
 };
 
 module.exports = config;

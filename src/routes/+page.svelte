@@ -1,3 +1,20 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<button class=" bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3"> ... </button>
+<script>
+	import { onMount } from 'svelte';
+
+	onMount(async () => {
+		const { Tooltip, initTE } = await import('tw-elements');
+		initTE({ Tooltip });
+	});
+</script>
+
+<div class="mt-16 flex justify-center">
+	<p class="text-lg">
+		Hover the link to see the
+		<a
+			href="#"
+			class="text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 transition duration-150 ease-in-out"
+			data-te-toggle="tooltip"
+			title="Hi! I'm tooltip">tooltip</a
+		>
+	</p>
+</div>
