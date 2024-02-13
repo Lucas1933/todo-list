@@ -1,7 +1,8 @@
 import { createUser, getUserByEmail } from 'db/services/user_service.js';
-import { isString } from '../../type_guards.js';
+
 import bcrypt from 'bcrypt';
-import { redirect, type Actions } from '@sveltejs/kit';
+import type { Actions } from '@sveltejs/kit';
+
 export const actions: Actions = {
 	register: async ({ cookies, request }) => {
 		const formData = await request.formData();
@@ -19,7 +20,6 @@ export const actions: Actions = {
 		const newUser: User = { email, user_name: userName, password: hashedPassword };
 		const result = await createUser(newUser);
 
-		redirect(303, '/');
-		/* return { status: 201, message: 'User registered' }; */
+		return { status: 201, message: 'User registered' };
 	}
 };
