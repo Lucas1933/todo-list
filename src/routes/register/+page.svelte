@@ -5,8 +5,7 @@
 		const { Ripple, Input, Button, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input, Button });
 	});
-	export let form;
-	$: console.log(form);
+
 	const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
 	let password: string;
 	let repeatedPassword: string;

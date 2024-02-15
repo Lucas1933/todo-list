@@ -1,11 +1,29 @@
 import userModel from 'db/models/user_model';
+import type { Document } from 'mongoose';
 
 export async function createUser(newUser: User) {
 	const result = await userModel.create(newUser);
-	return result;
+	const insertedUser = result.toObject();
+	const { password, ...user } = insertedUser;
+	return user;
 }
 
-export async function getUserByEmail(email: string): Promise<User | null> {
-	const result = (await userModel.findOne({ email })) as User;
-	return result;
+export async function getUserByEmail(
+	email: string,
+	{ withPassword = false }: { withPassword?: boolean } = {}
+): Promise<User | null> {
+	let user: User | null;
+	let result: Document | null;
+	if (withPassword) {
+		result = await userModel.findOne({ email }).select('+password');
+	} else {
+		result = await userModel.findOne({ email });
+	}
+
+	if (result) {
+		user = result.toObject();
+	} else {
+		user = null;
+	}
+	return user;
 }

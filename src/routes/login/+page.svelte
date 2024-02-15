@@ -5,8 +5,6 @@
 		const { Ripple, Input, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input });
 	});
-	export let form;
-	$: console.log(form);
 </script>
 
 <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->

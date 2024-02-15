@@ -1,22 +1,35 @@
 import { redirect, type Actions } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 import { getUserByEmail } from 'db/services/user_service';
+import { generateJwtToken } from 'utils/jwt';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
+	const user = (locals as ExtendedLocals).user;
+	if (user) {
+		redirect(303, '/');
+	}
+};
 export const actions: Actions = {
 	login: async ({ cookies, request }) => {
 		const formData = await request.formData();
 		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
-		const userFromDb: User | null = await getUserByEmail(email);
+		const loginPassword = formData.get('password') as string;
+		const userFromDb = await getUserByEmail(email, { withPassword: true });
 		if (!userFromDb) {
 			return { status: 401, message: 'email or password incorrect' };
 		}
-
-		const isUserValid = await bcrypt.compare(password, userFromDb.password);
+		const isUserValid = await bcrypt.compare(loginPassword, userFromDb.password);
 
 		if (!isUserValid) {
 			return { status: 401, message: 'email or password incorrect' };
 		}
-
-		redirect(303, '/');
+		const { password, ...user } = userFromDb;
+		const tokenizedUser = generateJwtToken(user, 24 * 60 * 60);
+		cookies.set('user', tokenizedUser, {
+			path: '/',
+			httpOnly: true,
+			maxAge: new Date().getTime() + 3600 * 1000
+		});
 	}
 };

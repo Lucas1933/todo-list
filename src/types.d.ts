@@ -4,3 +4,7 @@ type User = {
 	email: string;
 	password: string;
 };
+
+interface ExtendedLocals {
+	user: User;
+}
