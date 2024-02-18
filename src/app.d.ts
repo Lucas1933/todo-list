@@ -8,6 +8,18 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+	interface ExtendedLocals {
+		user: User;
+	}
+	type User = {
+		_id?: string;
+		user_name: string;
+		email: string;
+		password: string;
+	};
+	interface Params extends RouteParams {
+		slug: string;
+	}
 }
 
 export {};

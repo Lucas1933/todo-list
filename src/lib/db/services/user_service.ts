@@ -27,3 +27,13 @@ export async function getUserByEmail(
 	}
 	return user;
 }
+
+export async function deleteUserById(id: string) {
+	const result = await userModel.findByIdAndDelete(id);
+	return result;
+}
+
+export async function updateUserById(id: string, user: User) {
+	const result = await userModel.findByIdAndUpdate(id, user);
+	return result;
+}

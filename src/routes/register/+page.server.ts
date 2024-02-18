@@ -1,6 +1,6 @@
 import { createUser, getUserByEmail } from 'db/services/user_service.js';
 import { generateJwtToken } from 'utils/jwt';
-import bcrypt from 'bcrypt';
+import { hashPassword } from 'utils/bcrypt';
 import { redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -24,7 +24,7 @@ export const actions: Actions = {
 				return { status: 409, message: 'email already registered' };
 			}
 
-			const hashedPassword = await bcrypt.hash(password, 10);
+			const hashedPassword = await hashPassword(password);
 			const newUser: User = { email, user_name: userName, password: hashedPassword };
 			const insertedDbUser = await createUser(newUser);
 			const tokenizedUser = generateJwtToken(insertedDbUser, 24 * 60 * 60);

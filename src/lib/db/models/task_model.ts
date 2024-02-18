@@ -5,7 +5,7 @@ const taskSchema = new Schema(
 	{
 		title: { type: String, required: true },
 		description: { type: String, required: true },
-		completed: { type: String, required: true },
+		completed: { type: Boolean, required: true },
 		completed_at: { type: Date, required: true },
 		owner: { type: Schema.Types.ObjectId, required: true }
 	},
