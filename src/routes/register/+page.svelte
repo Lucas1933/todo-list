@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
+	import type { ActionData } from './$types';
+	export let form: ActionData;
 	onMount(async () => {
 		const { Ripple, Input, Button, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input, Button });
@@ -88,6 +90,7 @@
 		<div class="relative mb-6" data-te-input-wrapper-init>
 			<input
 				type="password"
+				name="repeated_password"
 				bind:value={repeatedPassword}
 				class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
 				id="repeatPasswordInputId"
@@ -120,3 +123,5 @@
 		<li>It should contain at least one digit</li>
 	</ul>
 </div>
+
+<div><h1>{form?.message}</h1></div>

@@ -1,5 +1,4 @@
 import MongoDataBase from 'db/mongo';
-
 import { decodeJwtToken } from 'utils/jwt';
 
 const mongoDB = MongoDataBase.getInstance();

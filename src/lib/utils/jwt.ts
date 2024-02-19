@@ -8,6 +8,15 @@ export function generateJwtToken(incomingPayload: any, expiration: number) {
 }
 
 export function decodeJwtToken(token: string) {
-	const decoded = jwt.verify(token, JWT_SECRET);
-	return decoded;
+	try {
+		const decoded = jwt.verify(token, JWT_SECRET);
+		return decoded;
+	} catch (error) {
+		if (error instanceof jwt.TokenExpiredError) {
+			return null;
+		}
+		if (error instanceof jwt.JsonWebTokenError) {
+			console.log('Error decoding JWT', error);
+		}
+	}
 }
