@@ -1,9 +1,8 @@
-import { DB_URL } from '$env/static/private';
+import MongoDataBase from 'db/mongo';
 
-import connectToDatabase from 'db/mongo';
 import { decodeJwtToken } from 'utils/jwt';
 
-connectToDatabase(DB_URL);
+const mongoDB = MongoDataBase.getInstance();
 
 export async function handle({ event, resolve }) {
 	const userCookie = event.cookies.get('user');
