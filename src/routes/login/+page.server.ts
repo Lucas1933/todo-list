@@ -1,5 +1,5 @@
 import { redirect, type Actions } from '@sveltejs/kit';
-import bcrypt from 'bcrypt';
+import { comparePassword } from 'utils/bcrypt';
 import { getUserByEmail } from 'db/services/user_service';
 import { generateJwtToken } from 'utils/jwt';
 import type { PageServerLoad } from './$types';
@@ -19,7 +19,7 @@ export const actions: Actions = {
 		if (!userFromDb) {
 			return { status: 401, message: 'email or password incorrect' };
 		}
-		const isUserValid = await bcrypt.compare(loginPassword, userFromDb.password);
+		const isUserValid = await comparePassword(loginPassword, userFromDb.password);
 
 		if (!isUserValid) {
 			return { status: 401, message: 'email or password incorrect' };

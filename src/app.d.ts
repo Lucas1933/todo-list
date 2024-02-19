@@ -9,13 +9,24 @@ declare global {
 		// interface Platform {}
 	}
 	interface ExtendedLocals {
-		user: User;
+		user: UserForCookie;
 	}
-	type User = {
-		_id?: string;
+	type UserFromDb = {
+		_id: string;
 		user_name: string;
 		email: string;
 		password: string;
+	};
+	type UserForInsertion = {
+		user_name: string;
+		email: string;
+		password: string;
+	};
+
+	type UserForCookie = {
+		_id: string;
+		user_name: string;
+		email: string;
 	};
 	interface Params extends RouteParams {
 		slug: string;

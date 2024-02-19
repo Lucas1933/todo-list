@@ -25,7 +25,7 @@ export const actions: Actions = {
 			}
 
 			const hashedPassword = await hashPassword(password);
-			const newUser: User = { email, user_name: userName, password: hashedPassword };
+			const newUser: UserForInsertion = { email, user_name: userName, password: hashedPassword };
 			const insertedDbUser = await createUser(newUser);
 			const tokenizedUser = generateJwtToken(insertedDbUser, 24 * 60 * 60);
 

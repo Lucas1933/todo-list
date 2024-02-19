@@ -18,7 +18,7 @@ export const actions: Actions = {
 
 	delete_account: async ({ cookies, request, locals }) => {
 		const user = (locals as ExtendedLocals).user;
-		const result = await deleteUserById(user._id!);
+		const result = await deleteUserById(user._id);
 		cookies.delete('user', { path: '/' });
 		redirect(303, '/login');
 	}
