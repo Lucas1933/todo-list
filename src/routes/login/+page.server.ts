@@ -30,7 +30,7 @@ export const actions: Actions = {
 			cookies.set('user', tokenizedUser, {
 				path: '/',
 				httpOnly: true,
-				maxAge: new Date().getTime() + 3600 * 1000
+				maxAge: new Date().getTime() + 24 * 3600
 			});
 		} catch (error) {
 			console.log('Error in login/page.server ', error);

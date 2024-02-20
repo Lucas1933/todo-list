@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 export const actions: Actions = {
-	restore_password: async ({ cookies, request, params }) => {
+	restore_password: async ({ request, params }) => {
 		try {
 			const token = params.slug!;
 			const decodedPayload = decodeJwtToken(token) as JwtPayload;
