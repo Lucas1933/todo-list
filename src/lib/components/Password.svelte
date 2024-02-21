@@ -4,7 +4,6 @@
 	const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
 	let password: string;
 	let repeatedPassword: string;
-
 	$: if (passwordRegex.test(password)) {
 		isPasswordCompliant = true;
 	} else {

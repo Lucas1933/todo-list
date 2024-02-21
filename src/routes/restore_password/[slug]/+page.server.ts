@@ -31,6 +31,7 @@ export const actions: Actions = {
 				userFromDb.password = hashedPassword;
 				const result = await updateUserById(userFromDb._id, userFromDb);
 			}
+			return { success: true };
 		} catch (error) {
 			console.log('Error in restore_password/page.server ', error);
 		}

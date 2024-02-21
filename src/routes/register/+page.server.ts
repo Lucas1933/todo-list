@@ -20,7 +20,6 @@ export const actions: Actions = {
 			const password = formData.get('password') as string;
 			const repeatedPassword = formData.get('repeated_password') as string;
 			const userFromDb = await getUserByEmail(email);
-
 			if (userFromDb) {
 				return fail(409, { message: 'Email already registered' });
 			}
@@ -36,14 +35,17 @@ export const actions: Actions = {
 			const newUser: UserForInsertion = { email, user_name: userName, password: hashedPassword };
 			const insertedDbUser = await createUser(newUser);
 			const tokenizedUser = generateJwtToken(insertedDbUser, 24 * 60 * 60);
-
 			cookies.set('user', tokenizedUser, {
 				path: '/',
 				httpOnly: true,
 				maxAge: new Date().getTime() + 24 * 3600
 			});
+			return { status: 200, redirect: '/' };
 		} catch (error) {
 			console.log('Error in register/page.server ', error);
+			return fail(500, {
+				message: 'something went wrong, please try again later'
+			});
 		}
 	}
 };
