@@ -7,7 +7,7 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ locals }) => {
 	const user = (locals as ExtendedLocals).user;
 	if (user) {
-		redirect(303, '/');
+		redirect(303, '/app/tasks');
 	}
 };
 export const actions: Actions = {

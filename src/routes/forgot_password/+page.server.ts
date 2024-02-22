@@ -1,4 +1,4 @@
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, type Actions, redirect } from '@sveltejs/kit';
 import EmailService from 'db/services/email_service';
 import {
 	createPasswordRestorationEntry,
@@ -6,6 +6,14 @@ import {
 } from 'db/services/restore_password_log_service';
 import { getUserByEmail } from 'db/services/user_service';
 import { generateJwtToken } from 'utils/jwt';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({ locals }) => {
+	const user = (locals as ExtendedLocals).user;
+	if (user) {
+		redirect(303, '/app/tasks');
+	}
+};
 
 export const actions: Actions = {
 	restore_password: async ({ request, cookies }) => {

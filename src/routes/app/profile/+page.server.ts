@@ -1,5 +1,5 @@
 import { redirect, type Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from './register/$types';
+import type { PageServerLoad } from '../../register/$types';
 import { deleteUserById } from 'db/services/user_service';
 
 export const load: PageServerLoad = async ({ locals }) => {
