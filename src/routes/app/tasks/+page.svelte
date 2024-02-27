@@ -1,13 +1,58 @@
 <script lang="ts">
-	import newTaskIcon from 'assets/icons/plus-large-svgrepo-com.svg';
+	import TaskCard from '$lib/components/TaskCard.svelte';
+	import CompletedTaskModal from '$lib/components/CompletedTaskModal.svelte';
+	import EditTaskCardModal from '$lib/components/EditTaskCardModal.svelte';
+	import NewTaskModal from '$lib/components/NewTaskModal.svelte';
+	import DeleteTaskModal from '$lib/components/DeleteTaskModal.svelte';
+	import AddTaskButton from '$lib/components/AddTaskButton.svelte';
+	import { onMount } from 'svelte';
+
+	export let data;
+	let taskData: TaskFromDb = {
+		name: '',
+		description: '',
+		started_at: new Date(),
+		accomplish_before: new Date(),
+		owner: '',
+		completed: false,
+		_id: ''
+	};
+
+	function handleTaskData(event: any) {
+		taskData = event.detail;
+	}
+
+	onMount(async () => {
+		const { Ripple, Input, Modal, Datepicker, initTE } = await import('tw-elements');
+		initTE({ Ripple, Input, Datepicker, Modal });
+	});
 </script>
 
 <div class="h-[100vh] overflow-y-scroll">
-	<button
-		class="dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]] bg-primary hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 t fixed bottom-[20vh] right-[5vh] rounded-full text-base font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-		data-te-toggle="modal"
-		data-te-target="#newTaskModal"
-	>
-		<img class="w-20" src={newTaskIcon} alt="" />
-	</button>
+	{#if data.tasks.length > 0}
+		{#each data.tasks as eachTask}
+			<TaskCard
+				name={eachTask.name}
+				description={eachTask.description}
+				started_at={eachTask.started_at.toLocaleDateString()}
+				accomplish_before={eachTask.accomplish_before.toLocaleDateString()}
+				completed={eachTask.completed}
+				owner={eachTask.owner}
+				_id={eachTask._id}
+				on:taskData={handleTaskData}
+			/>
+		{/each}
+	{/if}
+
+	<CompletedTaskModal />
+	<NewTaskModal />
+	<DeleteTaskModal taskId={taskData._id} taskName={taskData.name} />
+	<EditTaskCardModal
+		name={taskData.name}
+		description={taskData.description}
+		started_at={taskData.started_at}
+		accomplish_before={taskData.accomplish_before}
+		_id={taskData._id}
+	/>
+	<AddTaskButton />
 </div>

@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
-	import editIcon from 'assets/icons/edit-3-svgrepo-com.svg';
-	import deleteIcon from 'assets/icons/delete-1487-svgrepo-com.svg';
+	/* 	import { onMount } from 'svelte';
 	onMount(async () => {
 		const { Ripple, Input, Modal, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input, Modal });
-	});
+	}); */
+	export let name: string;
+	export let description: string;
+	export let started_at: Date;
+	export let accomplish_before: Date;
+
+	export let _id: string;
 </script>
 
 <!--Verically centered scrollable modal-->
@@ -33,7 +36,7 @@
 				<input
 					class="rounded-lg border-2 border-solid text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
 					id="editTaskModalLabel"
-					value="Walking the dog"
+					value={name}
 				/>
 
 				<!--Close button-->
@@ -63,46 +66,26 @@
 					name=""
 					id=""
 					cols="120"
-					rows="120"
-					>This is some placeholder content to show a vertically centered modal. We've added some
-					extra copy here to show how vertically centering the modal works when combined with
-					scrollable modals. We also use some repeated line breaks to quickly extend the height of
-					the content, thereby triggering the scrolling. When content becomes longer than the
-					predefined max-height of modal, content will be cropped and scrollable within the modal.
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse ipsum voluptatum eveniet
-					accusamus? Molestias voluptatem dolores minima deserunt libero veritatis ex recusandae,
-					culpa similique nesciunt reiciendis ullam modi aliquam. Deleniti. Facilis fugiat rerum,
-					quas perspiciatis necessitatibus, tenetur sint quos consequuntur accusamus ab eveniet iure
-					asperiores voluptate. Totam voluptate, libero odit labore ea incidunt, quisquam rerum
-					repellendus nemo nihil quam voluptatem? Sed dolorem explicabo unde culpa ipsam fugit iste
-					numquam eveniet placeat illum quisquam omnis ipsum quae vero, iusto quidem vitae id non
-					totam! Magni porro quibusdam facere? Eum, culpa corporis. Cumque, ex voluptatibus
-					similique at quas, quis cum quia, accusamus voluptatum porro temporibus laudantium
-					repellat id quasi. Voluptatibus tempore, ea accusamus tempora nostrum voluptatem
-					perferendis maiores ipsum veniam, aperiam quod. Libero eveniet accusantium perferendis
-					qui. Dolore commodi neque nesciunt, accusamus, fugiat officiis, adipisci in optio
-					recusandae iste nihil? Facilis numquam cum, quae illo libero odio assumenda reiciendis
-					quidem non corrupti! Quos maiores aliquam fugit reprehenderit provident, eos odit vel,
-					quaerat ipsam voluptatem sequi itaque eius adipisci non facilis inventore minima ex esse
-					debitis explicabo impedit libero! Architecto voluptate delectus sed? Veniam assumenda
-					ducimus omnis et vel magni natus aliquam dolore voluptatibus. Accusamus quaerat
-					reprehenderit minus quidem reiciendis, nobis illum doloribus officia recusandae ab! Sint
-					quasi ipsam repudiandae, eos nemo nesciunt. Porro, quaerat molestiae assumenda eligendi
-					perspiciatis asperiores error natus? Placeat magni natus laboriosam mollitia recusandae
-					praesentium, nulla vero rerum harum nobis. Eum mollitia unde dignissimos tempore,
-					inventore architecto voluptate ipsa. Omnis assumenda excepturi laudantium non blanditiis
-					libero obcaecati amet repudiandae possimus similique atque qui iure sit enim quaerat minus
-					corrupti cupiditate, maxime at! Eaque possimus nobis architecto excepturi id at? Velit
-					culpa molestiae fuga quam nostrum eos blanditiis quaerat iure architecto quibusdam. Sequi
-					ex distinctio eveniet reprehenderit eius repellendus rem molestias qui eum ipsam, quaerat,
-					voluptatibus officiis perferendis magni ab!</textarea
+					rows="120">{description}</textarea
 				>
 			</div>
 			<div class="flex flex-col">
 				<label for="started">Started At</label>
-				<input class="mb-3 rounded-lg border-2 border-solid" type="date" name="" id="started" />
+				<input
+					class="mb-3 rounded-lg border-2 border-solid"
+					type="date"
+					name="started_at"
+					id="started"
+					value={started_at}
+				/>
 				<label for="accomplish">Accomplish before:</label>
-				<input class="mb-3 rounded-lg border-2 border-solid" type="date" name="" id="accomplish" />
+				<input
+					class="mb-3 rounded-lg border-2 border-solid"
+					type="date"
+					name="accomplish_before"
+					id="accomplish"
+					value={accomplish_before}
+				/>
 			</div>
 			<!--Modal footer-->
 			<div

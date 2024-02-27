@@ -1,10 +1,10 @@
 <script>
-	import { onMount } from 'svelte';
+	/* import { onMount } from 'svelte'; */
 	import taskCompletedIcon from 'assets/icons/favicon.png';
-	onMount(async () => {
+	/* 	onMount(async () => {
 		const { Ripple, Input, Modal, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input, Modal });
-	});
+	}); */
 </script>
 
 <div

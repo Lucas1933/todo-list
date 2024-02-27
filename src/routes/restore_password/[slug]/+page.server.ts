@@ -1,9 +1,10 @@
 import { fail, type Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from '../../$types';
+
 import { getUserByEmail, updateUserById } from 'db/services/user_service';
 import { decodeJwtToken } from 'utils/jwt';
 import { hashPassword } from 'utils/bcrypt';
 import type { JwtPayload } from 'jsonwebtoken';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const token = (params as Params).slug;

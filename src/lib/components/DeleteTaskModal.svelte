@@ -1,12 +1,12 @@
-<script>
-	import { onMount } from 'svelte';
-
-	import editIcon from 'assets/icons/edit-3-svgrepo-com.svg';
-	import deleteIcon from 'assets/icons/delete-1487-svgrepo-com.svg';
-	onMount(async () => {
+<script lang="ts">
+	/* import { onMount } from 'svelte';
+	 */
+	/* 	onMount(async () => {
 		const { Ripple, Input, Modal, initTE } = await import('tw-elements');
 		initTE({ Ripple, Input, Modal });
-	});
+	}); */
+	export let taskId = '';
+	export let taskName = '';
 </script>
 
 <!--Vertically centered modal-->
@@ -31,7 +31,7 @@
 			>
 				<!--Modal title-->
 				<h5 class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200">
-					DELETE "walking the dog"
+					DELETE {taskName}
 				</h5>
 				<!--Close button-->
 				<button
@@ -73,7 +73,8 @@
 				>
 					Close
 				</button>
-				<form method="POST" action="?/delete_account">
+				<form method="POST" action="?/delete_task">
+					<input type="text" name="task_id" value={taskId} class="hidden" />
 					<button
 						class=" dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]] hover:bg-primary-600 t inline-block rounded bg-red-600 px-6 pb-2 pt-2.5 text-base font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-red-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
 						data-te-ripple-init
