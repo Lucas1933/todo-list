@@ -9,28 +9,13 @@
 	});
 </script>
 
-<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
-<div class="space-y-2">
-	<!--Button trigger vertically centered scrollable modal-->
-	<button
-		type="button"
-		class="bg-primary hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-		data-te-toggle="modal"
-		data-te-target="#exampleModalCenteredScrollable"
-		data-te-ripple-init
-		data-te-ripple-color="light"
-	>
-		Vertically centered scrollable modal
-	</button>
-</div>
-
 <!--Verically centered scrollable modal-->
 <div
 	data-te-modal-init
 	class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-	id="exampleModalCenteredScrollable"
+	id="editTaskModal"
 	tabindex="-1"
-	aria-labelledby="exampleModalCenteredScrollableLabel"
+	aria-labelledby="editTaskModalLabel"
 	aria-modal="true"
 	role="dialog"
 >
@@ -47,7 +32,7 @@
 				<!--Modal title-->
 				<input
 					class="rounded-lg border-2 border-solid text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
-					id="exampleModalCenteredScrollableLabel"
+					id="editTaskModalLabel"
 					value="Walking the dog"
 				/>
 
