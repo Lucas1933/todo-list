@@ -38,7 +38,7 @@ export const actions: Actions = {
 				const resetPasswordToken = generateJwtToken(jwtPayload, expiration);
 				emailService.sendPasswordRestorationEmail(
 					email,
-					'http://localhost:5173/restore_password/' + resetPasswordToken
+					'http://localhost:5173/auth/restore_password/' + resetPasswordToken
 				);
 				const result = await createPasswordRestorationEntry(email);
 				return {

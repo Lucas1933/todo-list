@@ -28,31 +28,29 @@
 	});
 </script>
 
-<div class="h-[100vh] overflow-y-scroll">
-	{#if data.tasks.length > 0}
-		{#each data.tasks as eachTask}
-			<TaskCard
-				name={eachTask.name}
-				description={eachTask.description}
-				started_at={eachTask.started_at.toLocaleDateString()}
-				accomplish_before={eachTask.accomplish_before.toLocaleDateString()}
-				completed={eachTask.completed}
-				owner={eachTask.owner}
-				_id={eachTask._id}
-				on:taskData={handleTaskData}
-			/>
-		{/each}
-	{/if}
+{#if data.tasks.length > 0}
+	{#each data.tasks as eachTask}
+		<TaskCard
+			name={eachTask.name}
+			description={eachTask.description}
+			started_at={eachTask.started_at.toLocaleDateString()}
+			accomplish_before={eachTask.accomplish_before.toLocaleDateString()}
+			completed={eachTask.completed}
+			owner={eachTask.owner}
+			_id={eachTask._id}
+			on:taskData={handleTaskData}
+		/>
+	{/each}
+{/if}
 
-	<CompletedTaskModal />
-	<NewTaskModal />
-	<DeleteTaskModal taskId={taskData._id} taskName={taskData.name} />
-	<EditTaskCardModal
-		name={taskData.name}
-		description={taskData.description}
-		started_at={taskData.started_at}
-		accomplish_before={taskData.accomplish_before}
-		_id={taskData._id}
-	/>
-	<AddTaskButton />
-</div>
+<NewTaskModal />
+<AddTaskButton />
+<CompletedTaskModal />
+<DeleteTaskModal taskId={taskData._id} taskName={taskData.name} />
+<EditTaskCardModal
+	name={taskData.name}
+	description={taskData.description}
+	started_at={taskData.started_at}
+	accomplish_before={taskData.accomplish_before}
+	_id={taskData._id}
+/>

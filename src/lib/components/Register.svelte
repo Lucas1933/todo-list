@@ -1,43 +1,21 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
-	import mainIcon from 'assets/icons/favicon.png';
 	import Password from '$lib/components/Password.svelte';
-	import { redirect } from '@sveltejs/kit';
 
-	export let form: ActionData;
 	let isPasswordCompliant = false;
 	let isPasswordEqualToRepeatedPassword = false;
-
-	$: if (form?.status == 200) {
-		console.log('execcutin form redirect');
-		redirect(307, form.redirect);
-	} else {
-		console.log('not executing redirect');
-	}
-
-	onMount(async () => {
-		const { Ripple, Input, Button, initTE } = await import('tw-elements');
-		initTE({ Ripple, Input, Button });
-	});
 </script>
 
-<div
-	class="flex w-full flex-col items-center justify-center rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
->
-	<img src={mainIcon} class="w-24" alt="" />
-	<h1 class="my-6">Start you task completion journey!</h1>
-
+<main class="w-full">
 	<form
 		method="POST"
 		action="?/register"
+		class="flex flex-col justify-center"
 		use:enhance={() => {
 			return async ({ update }) => {
 				update({ reset: false });
 			};
 		}}
-		class="flex w-full flex-col justify-center"
 	>
 		<!--Username input-->
 		<div class="relative mb-6" data-te-input-wrapper-init>
@@ -79,17 +57,4 @@
 			Register
 		</button>
 	</form>
-
-	<div class="mt-5 flex flex-col items-center">
-		{#if form}
-			<h1>{form?.message}</h1>
-		{/if}
-		<p>the password must be: <br /></p>
-		<ul class="list-disc">
-			<li>At least 6 characters long</li>
-			<li>It should contain at least one lowercase letter</li>
-			<li>It should contain at least one uppercase letter</li>
-			<li>It should contain at least one digit</li>
-		</ul>
-	</div>
-</div>
+</main>

@@ -1,23 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
-	import logo from 'assets/icons/favicon.png';
-
-	export let form;
-
-	onMount(async () => {
-		const { Ripple, Input, initTE } = await import('tw-elements');
-		initTE({ Ripple, Input });
-	});
 </script>
 
-<div
-	class="flex h-full grow flex-col items-center justify-start rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
->
-	<div><img src={logo} class="mb-4 w-28" alt="" /></div>
-	<h1 class="mb-4 text-xl">Simple To Do list</h1>
+<main class="w-full">
 	<form
-		class="w-full"
 		method="POST"
 		action="?/login"
 		use:enhance={() => {
@@ -67,30 +53,5 @@
 		>
 			Login
 		</button>
-
-		<!--Register link-->
-		<p class="mt-6 text-center text-lg text-neutral-800 dark:text-neutral-200">
-			Not a user yet?
-			<a
-				href="/register"
-				class="text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 text-lg transition duration-150 ease-in-out"
-				>Register</a
-			>
-		</p>
-
-		<!-- Forgot password link -->
-		<p class="mt-6 text-center text-lg text-neutral-800 dark:text-neutral-200">
-			Forgot your password?
-			<a
-				href="/forgot_password"
-				class="text-primary hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600 text-lg transition duration-150 ease-in-out"
-				>Restore password</a
-			>
-		</p>
 	</form>
-	<div>
-		{#if form}
-			<p class="text-xl font-bold text-red-600">{form?.message}</p>
-		{/if}
-	</div>
-</div>
+</main>

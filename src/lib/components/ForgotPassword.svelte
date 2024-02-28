@@ -1,34 +1,12 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { enhance } from '$app/forms';
-	import forgotPasswordImg from 'assets/images/forgot-password-concept-illustration_114360-1123.avif';
-	import emailSendedIcon from 'assets/icons/email-envelope-letter-message-check-confirm-svgrepo-com.svg';
-
-	export let form;
-
-	onMount(async () => {
-		const { Ripple, Input, initTE } = await import('tw-elements');
-		initTE({ Ripple, Input });
-	});
 </script>
 
-{#if form?.succes}
-	<div class="flex h-full flex-col items-center justify-center pb-28">
-		<img src={emailSendedIcon} class="w-28" alt="" />
-		<h1 class="p-5 text-center">The email was sent! if you dont see it please check your spam</h1>
-	</div>
-{:else}
-	<div>
-		<img src={forgotPasswordImg} alt="" />
-		<h1 class="px-5 text-base">
-			Forgot your password? Enter your email below so we can help you to restore it!
-		</h1>
-	</div>
-
+<main class="w-full">
 	<form
 		action="?/restore_password"
 		method="POST"
-		class="p-5"
+		class="mt-4"
 		use:enhance={() => {
 			return async ({ update }) => {
 				update({ reset: false });
@@ -58,10 +36,4 @@
 			Send link
 		</button>
 	</form>
-
-	<div>
-		{#if form}
-			<p class="text-center text-xl font-bold text-red-600">{form?.message}</p>
-		{/if}
-	</div>
-{/if}
+</main>
