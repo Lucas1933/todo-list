@@ -3,6 +3,7 @@
 
 	import editIcon from 'assets/icons/edit-3-svgrepo-com.svg';
 	import deleteIcon from 'assets/icons/delete-1487-svgrepo-com.svg';
+	import taskPendingIcon from 'assets/icons/circle-with-minus-svgrepo-com.svg';
 	import taskCompletedIcon from 'assets/icons/favicon.png';
 
 	export let name: string;
@@ -28,18 +29,32 @@
 	}
 </script>
 
-<div class="mx-3 mt-2 flex flex-col border-2 border-solid">
+<div
+	class="border-primary-600 mx-3 mt-2 flex flex-col rounded-lg border-2 border-solid shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]"
+>
 	<nav class="flex justify-end">
 		<div class="flex w-full">
-			<button
-				class="ml-2 mt-2 flex items-center rounded-lg border-2 border-solid"
-				on:click={dispatchTaskData}
-				data-te-toggle="modal"
-				data-te-target="#completedTaskModal"
-			>
-				<img class="w-10" src={taskCompletedIcon} alt="" />
-				<span>task accomplished?</span></button
-			>
+			{#if completed}
+				<button
+					class="ml-2 mt-2 flex items-center rounded-lg border-2 border-solid border-green-600"
+					on:click={dispatchTaskData}
+					data-te-toggle="modal"
+					data-te-target="#completedTaskModal"
+				>
+					<img class="m-2 w-10" src={taskCompletedIcon} alt="" />
+					<span class="mr-2">Completed</span>
+				</button>
+			{:else}
+				<button
+					class="ml-2 mt-2 flex items-center rounded-lg border-2 border-solid border-[#e7e704]"
+					on:click={dispatchTaskData}
+					data-te-toggle="modal"
+					data-te-target="#completedTaskModal"
+				>
+					<img class="m-2 w-10" src={taskPendingIcon} alt="" />
+					<span class="mr-2">Pending</span>
+				</button>
+			{/if}
 		</div>
 		<button
 			class="m-3 w-10"

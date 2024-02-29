@@ -1,5 +1,11 @@
 import { redirect, type Actions } from '@sveltejs/kit';
-import { createTask, getTasksByUserId, deleteTask, updateTask } from 'db/services/task_service';
+import {
+	createTask,
+	getTasksByUserId,
+	deleteTask,
+	updateTask,
+	completeTask
+} from 'db/services/task_service';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -96,6 +102,15 @@ export const actions: Actions = {
 			});
 		} catch (error) {
 			console.log('error in tasks/page.server update_task', error);
+		}
+	},
+	complete_task: async ({ request }) => {
+		try {
+			const formData = await request.formData();
+			const taskId = formData.get('task_id') as string;
+			const result = await completeTask(taskId);
+		} catch (error) {
+			console.log('error in tasks/page.server complete_task', error);
 		}
 	}
 };

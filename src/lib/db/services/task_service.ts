@@ -42,6 +42,21 @@ export async function updateTask(id: string, taskToUpdate: TaskForInsertion) {
 		throw new Error('Failed to update task');
 	}
 }
+
+export async function completeTask(id: string) {
+	try {
+		console.log(id);
+		const task = await taskModel.findByIdAndUpdate(
+			id,
+			{ $set: { completed: true } },
+			{ new: true }
+		);
+		console.log(task);
+		return task;
+	} catch (error) {
+		throw new Error('Failed to complete task');
+	}
+}
 /* 
 export async function getTaskById(id) {
 	try {

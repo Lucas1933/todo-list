@@ -6,6 +6,7 @@
 	import DeleteTaskModal from '$lib/components/DeleteTaskModal.svelte';
 	import AddTaskButton from '$lib/components/AddTaskButton.svelte';
 	import { onMount } from 'svelte';
+	import { completedViewStore } from '$lib/stores/completedViewStore';
 
 	export let data;
 
@@ -31,22 +32,39 @@
 
 {#if data.tasks.length > 0}
 	{#each data.tasks as eachTask}
-		<TaskCard
-			name={eachTask.name}
-			description={eachTask.description}
-			started_at={eachTask.started_at}
-			accomplish_before={eachTask.accomplish_before}
-			completed={eachTask.completed}
-			owner={eachTask.owner}
-			_id={eachTask._id}
-			on:taskData={handleTaskData}
-		/>
+		{#if $completedViewStore && eachTask.completed}
+			<TaskCard
+				name={eachTask.name}
+				description={eachTask.description}
+				started_at={eachTask.started_at}
+				accomplish_before={eachTask.accomplish_before}
+				completed={eachTask.completed}
+				owner={eachTask.owner}
+				_id={eachTask._id}
+				on:taskData={handleTaskData}
+			/>
+		{:else if !$completedViewStore && !eachTask.completed}
+			<TaskCard
+				name={eachTask.name}
+				description={eachTask.description}
+				started_at={eachTask.started_at}
+				accomplish_before={eachTask.accomplish_before}
+				completed={eachTask.completed}
+				owner={eachTask.owner}
+				_id={eachTask._id}
+				on:taskData={handleTaskData}
+			/>
+		{/if}
 	{/each}
 {/if}
 
+{#if !$completedViewStore}
+	<AddTaskButton />
+{/if}
+
 <NewTaskModal />
-<AddTaskButton />
-<CompletedTaskModal />
+
+<CompletedTaskModal taskId={taskData._id} />
 <DeleteTaskModal taskId={taskData._id} taskName={taskData.name} />
 <EditTaskCardModal
 	name={taskData.name}
