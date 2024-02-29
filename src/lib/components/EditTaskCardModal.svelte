@@ -1,15 +1,26 @@
 <script lang="ts">
-	/* 	import { onMount } from 'svelte';
-	onMount(async () => {
-		const { Ripple, Input, Modal, initTE } = await import('tw-elements');
-		initTE({ Ripple, Input, Modal });
-	}); */
 	export let name: string;
 	export let description: string;
+	export let completed: boolean;
 	export let started_at: Date;
 	export let accomplish_before: Date;
-
 	export let _id: string;
+	let validStartedAtDate: string;
+	let validAccomplishBeforeDate: string;
+	let bindedNameValue: string;
+	$: {
+		bindedNameValue = name;
+	}
+	$: {
+		let isosDate = started_at.toISOString();
+		let splittedDate = isosDate.split('T');
+		validStartedAtDate = splittedDate[0];
+	}
+	$: {
+		let isosDate = accomplish_before.toISOString();
+		let splittedDate = isosDate.split('T');
+		validAccomplishBeforeDate = splittedDate[0];
+	}
 </script>
 
 <!--Verically centered scrollable modal-->
@@ -36,7 +47,7 @@
 				<input
 					class="rounded-lg border-2 border-solid text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
 					id="editTaskModalLabel"
-					value={name}
+					bind:value={bindedNameValue}
 				/>
 
 				<!--Close button-->
@@ -58,54 +69,51 @@
 					</svg>
 				</button>
 			</div>
-
 			<!--Modal body-->
-			<div class="relative p-4">
-				<textarea
-					class="max-h-[50vh] max-w-full rounded-lg border-2 border-solid"
-					name=""
-					id=""
-					cols="120"
-					rows="120">{description}</textarea
+			<form action="?/update_task" method="post">
+				<div class="relative p-4">
+					<textarea
+						class="max-h-[50vh] max-w-full rounded-lg border-2 border-solid"
+						name="description"
+						id=""
+						cols="120"
+						rows="120">{description}</textarea
+					>
+				</div>
+				<div class="flex flex-col">
+					<label for="started">Started At</label>
+					<input
+						class="mb-3 rounded-lg border-2 border-solid"
+						type="date"
+						name="started_at"
+						id="started"
+						value={validStartedAtDate}
+					/>
+					<label for="accomplish">Accomplish before:</label>
+					<input
+						class="mb-3 rounded-lg border-2 border-solid"
+						type="date"
+						name="accomplish_before"
+						id="accomplish"
+						value={validAccomplishBeforeDate}
+					/>
+					<input type="text" class="hidden" name="task_id" value={_id} />
+					<input type="text" class="hidden" name="name" value={bindedNameValue} />
+					<input type="text" class="hidden" name="completed" value={completed ? 'true' : 'false'} />
+				</div>
+				<!--Modal footer-->
+				<div
+					class="flex items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50"
 				>
-			</div>
-			<div class="flex flex-col">
-				<label for="started">Started At</label>
-				<input
-					class="mb-3 rounded-lg border-2 border-solid"
-					type="date"
-					name="started_at"
-					id="started"
-					value={started_at}
-				/>
-				<label for="accomplish">Accomplish before:</label>
-				<input
-					class="mb-3 rounded-lg border-2 border-solid"
-					type="date"
-					name="accomplish_before"
-					id="accomplish"
-					value={accomplish_before}
-				/>
-			</div>
-			<!--Modal footer-->
-			<div
-				class="flex items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50"
-			>
-				<button
-					class="ml-1 inline-block rounded bg-red-600 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-red-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-red-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-red-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-					data-te-ripple-init
-					data-te-ripple-color="light">DELETE TASK</button
-				>
-
-				<button
-					type="button"
-					class="bg-primary hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 ml-1 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-					data-te-ripple-init
-					data-te-ripple-color="light"
-				>
-					Save changes
-				</button>
-			</div>
+					<button
+						class="bg-primary hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 ml-1 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+						data-te-ripple-init
+						data-te-ripple-color="light"
+					>
+						Save changes
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

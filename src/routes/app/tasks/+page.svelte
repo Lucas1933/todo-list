@@ -8,6 +8,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
+
 	let taskData: TaskFromDb = {
 		name: '',
 		description: '',
@@ -33,8 +34,8 @@
 		<TaskCard
 			name={eachTask.name}
 			description={eachTask.description}
-			started_at={eachTask.started_at.toLocaleDateString()}
-			accomplish_before={eachTask.accomplish_before.toLocaleDateString()}
+			started_at={eachTask.started_at}
+			accomplish_before={eachTask.accomplish_before}
 			completed={eachTask.completed}
 			owner={eachTask.owner}
 			_id={eachTask._id}
@@ -51,6 +52,7 @@
 	name={taskData.name}
 	description={taskData.description}
 	started_at={taskData.started_at}
+	completed={taskData.completed}
 	accomplish_before={taskData.accomplish_before}
 	_id={taskData._id}
 />

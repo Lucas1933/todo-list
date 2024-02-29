@@ -26,6 +26,22 @@ export async function deleteTask(id: string) {
 		throw new Error('Failed to delete task');
 	}
 }
+
+export async function updateTask(id: string, taskToUpdate: TaskForInsertion) {
+	try {
+		const { owner, ...taskToUpdateWithoutOwner } = taskToUpdate;
+
+		const task = await taskModel.findByIdAndUpdate(
+			id,
+			{ $set: { ...taskToUpdateWithoutOwner } },
+			{ new: true }
+		);
+
+		return task;
+	} catch (error) {
+		throw new Error('Failed to update task');
+	}
+}
 /* 
 export async function getTaskById(id) {
 	try {
@@ -36,14 +52,7 @@ export async function getTaskById(id) {
 	}
 }
 
-export async function updateTask(id, data) {
-	try {
-		const task = await taskModel.findByIdAndUpdate(id, data, { new: true });
-		return task;
-	} catch (error) {
-		throw new Error('Failed to update task');
-	}
-}
+
 
 
  */

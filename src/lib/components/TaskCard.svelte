@@ -7,8 +7,8 @@
 
 	export let name: string;
 	export let description: string;
-	export let started_at: string;
-	export let accomplish_before: string;
+	export let started_at: Date;
+	export let accomplish_before: Date;
 	export let completed: boolean;
 	export let owner: string;
 	export let _id: string;
@@ -67,7 +67,7 @@
 	<hr class="mx-2 my-2 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
 
 	<footer class="mx-2 flex flex-col">
-		<span class="mb-3">Started at: {started_at}</span>
-		<span>Accomplish before: {accomplish_before}</span>
+		<span class="mb-3">Started at: {started_at.toLocaleDateString()}</span>
+		<span>Accomplish before: {accomplish_before.toLocaleDateString()}</span>
 	</footer>
 </div>

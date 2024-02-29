@@ -36,6 +36,13 @@ declare global {
 		completed: boolean;
 		owner: string;
 	}
+	interface TaskForUpdate {
+		name: string;
+		description: string;
+		started_at: Date;
+		accomplish_before: Date;
+		completed: boolean;
+	}
 	interface TaskFromDb {
 		name: string;
 		description: string;
