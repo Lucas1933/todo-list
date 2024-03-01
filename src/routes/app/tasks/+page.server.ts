@@ -4,7 +4,7 @@ import {
 	getTasksByUserId,
 	deleteTask,
 	updateTask,
-	completeTask
+	changeTaskCompletedState
 } from 'db/services/task_service';
 import type { PageServerLoad } from './$types';
 
@@ -104,11 +104,12 @@ export const actions: Actions = {
 			console.log('error in tasks/page.server update_task', error);
 		}
 	},
-	complete_task: async ({ request }) => {
+	change_task_state: async ({ request }) => {
 		try {
 			const formData = await request.formData();
 			const taskId = formData.get('task_id') as string;
-			const result = await completeTask(taskId);
+			const currentTaskState = formData.get('completed') as string;
+			const result = await changeTaskCompletedState(taskId, JSON.parse(currentTaskState));
 		} catch (error) {
 			console.log('error in tasks/page.server complete_task', error);
 		}

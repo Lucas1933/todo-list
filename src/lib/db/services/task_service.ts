@@ -43,14 +43,10 @@ export async function updateTask(id: string, taskToUpdate: TaskForInsertion) {
 	}
 }
 
-export async function completeTask(id: string) {
+export async function changeTaskCompletedState(id: string, completed: boolean) {
 	try {
 		console.log(id);
-		const task = await taskModel.findByIdAndUpdate(
-			id,
-			{ $set: { completed: true } },
-			{ new: true }
-		);
+		const task = await taskModel.findByIdAndUpdate(id, { $set: { completed } }, { new: true });
 		console.log(task);
 		return task;
 	} catch (error) {
