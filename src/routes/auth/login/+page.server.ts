@@ -3,7 +3,7 @@ import { comparePassword } from 'utils/bcrypt';
 import { getUserByEmail } from 'db/services/user_service';
 import { generateJwtToken } from 'utils/jwt';
 import type { PageServerLoad } from './$types';
-
+export const ssr = false;
 export const load: PageServerLoad = async ({ locals }) => {
 	const user = (locals as ExtendedLocals).user;
 	if (user) {

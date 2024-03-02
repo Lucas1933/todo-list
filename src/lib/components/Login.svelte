@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
+	onMount(async () => {
+		const { Ripple, Input, Button, initTE } = await import('tw-elements');
+		initTE({ Ripple, Input, Button });
+	});
 </script>
 
 <main class="w-full">
