@@ -12,23 +12,19 @@ export default class EmailService {
 		});
 	}
 	sendPasswordRestorationEmail(email: string, link: string) {
-		try {
-			const mailOptions = {
-				from: EMAIL_USER,
-				to: email,
-				subject: 'Recuperar contraseña',
-				text: `Haga click aqui --> ${link} <-- para recuperar su contraseña`
-			};
+		const mailOptions = {
+			from: EMAIL_USER,
+			to: email,
+			subject: 'Recuperar contraseña',
+			text: `Haga click aqui --> ${link} <-- para recuperar su contraseña`
+		};
 
-			this.transporter.sendMail(mailOptions, function (error, info) {
-				if (error) {
-					console.log(error);
-				} else {
-					console.log('Email sent: ' + info.response);
-				}
-			});
-		} catch (error) {
-			throw new Error('Failed to send email', error);
-		}
+		this.transporter.sendMail(mailOptions, function (error, info) {
+			if (error) {
+				console.log(error);
+			} else {
+				console.log('Email sent: ' + info.response);
+			}
+		});
 	}
 }
