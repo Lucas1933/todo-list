@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"@emailjs/browser": "^4.3.1",
+		"@netlify/functions": "^2.6.0",
 		"@types/jsonwebtoken": "^9.0.5",
 		"@types/mongoose": "^5.11.97",
 		"@types/nodemailer": "^6.4.14",
