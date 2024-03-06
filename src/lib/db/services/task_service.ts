@@ -53,17 +53,3 @@ export async function changeTaskCompletedState(id: string, completed: boolean) {
 		throw new Error('Failed to complete task');
 	}
 }
-/* 
-export async function getTaskById(id) {
-	try {
-		const task = await taskModel.findById(id);
-		return task;
-	} catch (error) {
-		throw new Error('Failed to fetch task');
-	}
-}
-
-
-
-
- */

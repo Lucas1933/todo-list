@@ -9,15 +9,19 @@ import {
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const user = (locals as ExtendedLocals).user;
-	if (!user) {
-		redirect(303, '/auth/login');
+	try {
+		const user = (locals as ExtendedLocals).user;
+		if (!user) {
+			redirect(303, '/auth/login');
+		}
+		const tasks = await getTasksByUserId(user._id);
+		tasks.forEach((eachTask) => {
+			eachTask._id = eachTask._id.toString();
+		});
+		return { tasks };
+	} catch (error) {
+		throw error;
 	}
-	const tasks = await getTasksByUserId(user._id);
-	tasks.forEach((eachTask) => {
-		eachTask._id = eachTask._id.toString();
-	});
-	return { tasks };
 };
 
 export const actions: Actions = {
